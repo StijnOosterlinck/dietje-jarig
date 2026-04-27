@@ -337,30 +337,30 @@ const BIRTHDAY = new Date('2026-05-03T00:00:00');
 // 24 messages — one per card
 // Replace these with your own words!
 const MESSAGES = [
-  "De manier waarop je ogen oplichten als je lacht — het is mijn favoriete aanblik ter wereld.",
-  "Jij maakt zelfs de meest gewone dinsdag voelen als een avontuur.",
-  "Jouw vriendelijkheid is stil en eindeloos. Ik merk elk klein gebaar op.",
-  "De manier waarop je zachtjes neuriet als je kookt. Ik zou er eeuwig naar kunnen luisteren.",
-  "Jij weet altijd precies wat ik nodig heb voordat ik het zelf zeg.",
-  "24 jaar dat jij bestaat in deze wereld — wat een geschenk voor iedereen die je kent.",
-  "De manier waarop jij zorgt voor de mensen van wie je houdt is bijzonder.",
-  "Ik hou ervan dat je uitgesproken meningen hebt over ontbijtgerechten. Verander daar nooit iets aan.",
-  "Je bent zoveel moediger dan je jezelf geeft.",
-  "Elke reis die we samen maken wordt een verhaal dat ik nooit vergeet.",
-  "Jij maakt me elke dag een beetje beter mens willen zijn.",
-  "Het geluid van jouw lach is eerlijk gezegd mijn favoriete geluid.",
-  "Jij ziet schoonheid op plekken waar anderen zomaar voorbijlopen.",
-  "Je bent schitterend — en ik vind het geweldig om te zien hoe de wereld dat ontdekt.",
-  "De manier waarop jij van je familie houdt doet me telkens opnieuw verliefd worden.",
-  "Jouw muzieksmaak is, objectief gezien, perfect.",
-  "Jij geeft de warmste knuffels. Wetenschappelijk bewezen feit.",
-  "Ik hou ervan dat je je soms druk maakt om kleine dingen. Het is vertederend.",
-  "Jij bent de beste beslissing die ik ooit heb gemaakt.",
-  "De wereld is oprecht interessanter met jou erin.",
-  "Jij gaat door moeilijke dagen met meer gratie dan je beseft.",
-  "Ik ben zo trots op alles wat je al hebt opgebouwd — en kan niet wachten op wat nog komt.",
-  "Elk jaar met jou is mijn favoriete jaar tot nu toe.",
-  "Op nog vele jaren samen vol avontuur, lachen en samen oud worden. Ik hou van jou. ❤️",
+  "Je hebt me kennis laten maken met liefde, op zo een mooie manier",
+  "De perfecte gids voor stiekem toch wel een mooie stad",
+  "Zo creatief, dat toon je echt in alle kleine en grote zaken",
+  "Je laat me zo thuis voelen in Dorp West 127",
+  "Je hebt al zo vaak eten voor mij klaargemaakt, zoooo lief dietje",
+  "Het maakt niet uit wat we doen, daguitstappen met jou zijn puur genot!",
+  "Zelfs tijdens het videobellen slaag je er toch nog in zo cute te zijn xx",
+  "Dietje die samen wil sporten met mij is zo leukleukleuk",
+  "Elke sunset is mooier met jou erbij :)",
+  "Zelfs in het verre China laat jij me toch zo thuis voelen",
+  "Jij in mijn kleren is echt te te te schattig",
+  "De gekke diete maakt me zowaar nog verliefder x",
+  "Genieten van de sunset in mijn favoriete kamer van mijn favoriete persoon",
+  "Je bent mijn favoriete staplaats op een concert ;)",
+  "Weekendjes aan zee, zo'n prachtmens mag altijd met me mee!",
+  "Stoere tijger van me xxx",
+  "Ik vind het altijd zooo aangenaam als we samen koken en bakken",
+  "IK BEN SUPERTROTS OP 10MILES FINISHER DIETJE VERSTRAETJE <3",
+  "Terrasje met dietje en je had al hapjes voorbereid... smelt",
+  "Je maakt zelf het koken in mijn eigen huis leuk!!",
+  "Op nog vele strandwandelingen liefste knapste dietje",
+  "Jij neemt veel foto's van ons, is zo leuk!! veel herinneringen zo :)",
+  "Deze foto is gewoon te goed, mocht niet ontbreken hihi xxx verliefd ly",
+  "momentopname van een heel cute video van de beste pannenkoekflipper van het land x",
 ];
 
 // Images are loaded from the img/ folder as 1.jpg, 2.jpg, ... 24.jpg
@@ -412,7 +412,7 @@ function buildGrid() {
 
     const img = document.createElement('img');
     img.alt = `Memory ${i+1}`;
-    img.src = `${i+1}.jpg`;
+    img.src = `${i+1}.jpeg`;
     img.style.display = 'none';
     img.onload = () => { img.style.display = 'block'; ph.style.display = 'none'; };
     img.onerror = () => { img.style.display = 'none'; ph.style.display = 'flex'; };
