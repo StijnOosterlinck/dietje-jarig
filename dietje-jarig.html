@@ -267,12 +267,6 @@
     font-weight: 400;
   }
 
-  /* ── CONFETTI ── */
-  #confetti-canvas {
-    position: fixed; inset: 0;
-    pointer-events: none; z-index: 999;
-  }
-
   /* ── DEV TOGGLE ── */
   #dev-toggle {
     position: fixed; bottom: 1.2rem; right: 1.2rem; z-index: 9999;
@@ -303,7 +297,7 @@
 
 <button id="dev-toggle" onclick="devToggle()">🔀 Preview other page</button>
 <div id="particles"></div>
-<canvas id="confetti-canvas"></canvas>
+
 
 <!-- ═══════════ COUNTDOWN PAGE ═══════════ -->
 <div id="countdown-page">
@@ -417,7 +411,7 @@ function buildGrid() {
 
     const img = document.createElement('img');
     img.alt = `Memory ${i+1}`;
-    img.src = `img/${i+1}.jpg`;
+    img.src = `${i+1}.jpg`;
     img.style.display = 'none';
     img.onload = () => { img.style.display = 'block'; ph.style.display = 'none'; };
     img.onerror = () => { img.style.display = 'none'; ph.style.display = 'flex'; };
@@ -447,73 +441,12 @@ function buildGrid() {
   });
 }
 
-// ── Confetti ──
-const canvas = document.getElementById('confetti-canvas');
-const ctx = canvas.getContext('2d');
-let confettiBits = [];
-let confettiRunning = false;
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-function spawnConfetti() {
-  const confColors = ['#e8647a','#f7c5cc','#d4a84b','#a8d8ea','#c8b6e2','#f9e04b'];
-  for (let i = 0; i < 160; i++) {
-    confettiBits.push({
-      x: Math.random() * canvas.width,
-      y: -10 - Math.random() * 200,
-      w: 6 + Math.random() * 8,
-      h: 4 + Math.random() * 6,
-      color: confColors[Math.floor(Math.random()*confColors.length)],
-      vy: 2 + Math.random() * 4,
-      vx: -2 + Math.random() * 4,
-      rot: Math.random() * 360,
-      rotV: -3 + Math.random() * 6,
-      opacity: 1,
-    });
-  }
-}
-
-function animateConfetti() {
-  if (!confettiRunning) return;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  confettiBits.forEach(b => {
-    b.y += b.vy; b.x += b.vx; b.rot += b.rotV;
-    if (b.y > canvas.height) b.opacity -= .03;
-    ctx.save();
-    ctx.globalAlpha = Math.max(0, b.opacity);
-    ctx.translate(b.x, b.y);
-    ctx.rotate(b.rot * Math.PI / 180);
-    ctx.fillStyle = b.color;
-    ctx.fillRect(-b.w/2, -b.h/2, b.w, b.h);
-    ctx.restore();
-  });
-  confettiBits = confettiBits.filter(b => b.opacity > 0);
-  if (confettiBits.length > 0) requestAnimationFrame(animateConfetti);
-  else confettiRunning = false;
-}
-
-function launchConfetti() {
-  confettiRunning = true;
-  spawnConfetti();
-  setTimeout(spawnConfetti, 700);
-  setTimeout(spawnConfetti, 1400);
-  animateConfetti();
-}
-
 // ── Switch pages ──
 function showBirthdayPage() {
   document.getElementById('countdown-page').style.display = 'none';
   const bp = document.getElementById('birthday-page');
   bp.style.display = 'block';
   buildGrid();
-  launchConfetti();
-  // re-launch confetti every 8s for fun
-  setInterval(launchConfetti, 8000);
 }
 
 // ── Countdown ticker ──
