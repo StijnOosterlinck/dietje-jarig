@@ -57,7 +57,11 @@
     animation: bob 2s ease-in-out infinite;
     margin-bottom: .5rem;
     display: block;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .1s;
   }
+  .crown:active { transform: scale(.85) !important; }
   @keyframes bob {
     0%,100% { transform: translateY(0) rotate(-5deg); }
     50%      { transform: translateY(-12px) rotate(5deg); }
@@ -121,7 +125,11 @@
     display: flex; align-items: center; gap: 1rem;
     color: #c8a0a4; font-size: .85rem; letter-spacing: .12em;
     text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+    transition: color .2s;
   }
+  .heartline:hover { color: var(--rose); }
   .heartline::before, .heartline::after {
     content: ''; flex: 1; height: 1px;
     background: linear-gradient(90deg, transparent, var(--blush));
@@ -227,7 +235,6 @@
     box-shadow: 0 2px 8px rgba(0,0,0,.2);
     z-index: 2;
   }
-  /* placeholder gradient when no image */
   .card-placeholder {
     width: 100%; height: 100%;
     display: flex; flex-direction: column;
@@ -291,6 +298,126 @@
     animation: fadeUp .5s ease forwards;
   }
 
+  /* ── EASTER EGG: CROWN POPUP ── */
+  #crown-popup {
+    display: none;
+    position: fixed; inset: 0; z-index: 1000;
+    align-items: center; justify-content: center;
+    background: rgba(44,26,26,.45);
+    backdrop-filter: blur(4px);
+  }
+  #crown-popup.visible {
+    display: flex;
+    animation: fadeIn .25s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .crown-popup-box {
+    background: linear-gradient(145deg, #fff0f3, #fff8f4);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    max-width: 340px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(232,100,122,.3);
+    border: 2px solid rgba(232,100,122,.2);
+    animation: popIn .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes popIn {
+    from { transform: scale(.7); opacity: 0; }
+    to   { transform: scale(1);  opacity: 1; }
+  }
+  .crown-popup-box .popup-icon { font-size: 3rem; margin-bottom: .8rem; display: block; }
+  .crown-popup-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--rose);
+    margin-bottom: .8rem;
+  }
+  .crown-popup-box p {
+    font-size: .95rem;
+    line-height: 1.7;
+    color: #5a3535;
+    font-weight: 300;
+  }
+  .popup-close-btn {
+    margin-top: 1.5rem;
+    background: var(--rose);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: .5rem 1.6rem;
+    font-family: 'Lato', sans-serif;
+    font-size: .85rem;
+    letter-spacing: .1em;
+    cursor: pointer;
+    transition: opacity .2s;
+  }
+  .popup-close-btn:hover { opacity: .85; }
+
+  /* ── EASTER EGG: INVITATION POPUP ── */
+  #invite-popup {
+    display: none;
+    position: fixed; inset: 0; z-index: 1000;
+    align-items: center; justify-content: center;
+    background: rgba(44,26,26,.55);
+    backdrop-filter: blur(4px);
+  }
+  #invite-popup.visible {
+    display: flex;
+    animation: fadeIn .25s ease;
+  }
+
+  .invite-popup-box {
+    position: relative;
+    max-width: 420px;
+    width: 92%;
+    animation: popIn .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .invite-popup-box img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    display: block;
+  }
+  .invite-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #fff0f3, #f7e4ea);
+    border: 2px dashed var(--blush);
+    display: none;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: .8rem;
+    box-shadow: 0 20px 60px rgba(232,100,122,.2);
+  }
+  .invite-placeholder span { font-size: 3rem; }
+  .invite-placeholder p {
+    font-size: .8rem;
+    color: #b08080;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .invite-close-btn {
+    position: absolute;
+    top: -14px; right: -14px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--deep);
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,.3);
+    transition: background .2s;
+  }
+  .invite-close-btn:hover { background: var(--rose); }
+
 </style>
 </head>
 <body>
@@ -298,10 +425,34 @@
 <button id="dev-toggle" onclick="devToggle()">🔀 Andere pagina bekijken</button>
 <div id="particles"></div>
 
+<!-- ── EASTER EGG 1: CROWN POPUP ── -->
+<div id="crown-popup">
+  <div class="crown-popup-box">
+    <span class="popup-icon">👑</span>
+    <!-- ✏️ Change the title and message below to your secret note -->
+    <h2>Oh! wat is dit?</h2>
+    <p>Hoe kon ik raden dat Dietje zo nieuwsgierig ging rondklikken? x <br>
+    Ik hou van jou Dietjeee bijnaaa jaaaaariggg woehoewww!!!!</p>
+    <button class="popup-close-btn" onclick="closePopup('crown-popup')">sluiten ✕</button>
+  </div>
+</div>
+
+<!-- ── EASTER EGG 2: INVITATION POPUP ── -->
+<div id="invite-popup">
+  <div class="invite-popup-box">
+    <!-- ✏️ Name your invitation image "invitation.jpg" and upload it to the repo -->
+    <img id="invite-img" src="invitation.jpeg" alt="Uitnodiging" />
+    <div class="invite-placeholder" id="invite-ph">
+      <span>💌</span>
+      <p>Upload je uitnodigingskaart<br/>als "invitation.jpg" in de repo</p>
+    </div>
+    <button class="invite-close-btn" onclick="closePopup('invite-popup')">✕</button>
+  </div>
+</div>
 
 <!-- ═══════════ COUNTDOWN PAGE ═══════════ -->
 <div id="countdown-page">
-  <span class="crown">👑</span>
+  <span class="crown" id="crown">👑</span>
   <h1 class="countdown-title">Mijn Dietje is bijna jarig...</h1>
   <p class="countdown-sub">Een kleine verrassing, speciaal voor jou <br>
     omdat je zo van verrassingen houdt <br> xxx</p>
@@ -313,16 +464,16 @@
     <div class="unit"><span class="unit-num" id="s">00</span><span class="unit-label">Seconden</span></div>
   </div>
 
-  <div class="heartline">✦ &nbsp; 3 mei 2026 &nbsp; ✦</div>
+  <div class="heartline" id="heartline">✦ &nbsp; 3 mei 2026 &nbsp; ✦</div>
 </div>
 
 <!-- ═══════════ BIRTHDAY PAGE ═══════════ -->
 <div id="birthday-page">
   <div class="bday-header">
-    <h1>Gelukkige verjaardag,<br/><em>Dietje &hearts; </em></h1>
+    <h1>Gelukkige verjaardag,<br/><em>Dietje &hearts;</em></h1>
     <p>24 redenen waarom ik van je hou, draai elke kaart om om ze te ontdekken <br>hihi x</p>
   </div>
-  <p class="instruction">Voor moest je een beetje een boomer zijn, <br>tik op een kaartje om het te draaien xp</p>
+  <p class="instruction">Voor moest je een beetje een boomer zijn, <br>tik op een kaartje om het te draaien!</p>
   <div class="grid" id="grid"></div>
 </div>
 
@@ -335,7 +486,6 @@
 const BIRTHDAY = new Date('2026-05-03T00:00:00');
 
 // 24 messages — one per card
-// Replace these with your own words!
 const MESSAGES = [
   "Je hebt me kennis laten maken met liefde, op zo een mooie manier",
   "De perfecte gids voor stiekem toch wel een mooie stad",
@@ -363,9 +513,6 @@ const MESSAGES = [
   "momentopname van een heel cute video van de beste pannenkoekflipper van het land x",
 ];
 
-// Images are loaded from the img/ folder as 1.jpg, 2.jpg, ... 24.jpg
-// If a file doesn't exist yet, a pretty placeholder is shown automatically.
-
 // Emoji used on placeholder cards (cycles through)
 const EMOJIS = ['🌸','🌺','🌹','💐','🌷','✨','🦋','🍓','🌙','⭐','🎀','💌','🌈','🍰','🫶','💫','🌸','🌻','🎁','🍒','💕','🌟','🎶','🩷'];
 
@@ -389,6 +536,31 @@ for (let i = 0; i < 28; i++) {
   `;
   particleContainer.appendChild(p);
 }
+
+// ── Easter egg 1: crown tap → secret message ──
+document.getElementById('crown').addEventListener('click', () => {
+  document.getElementById('crown-popup').classList.add('visible');
+});
+
+// ── Easter egg 2: heartline tap → invitation card ──
+const inviteImg = document.getElementById('invite-img');
+const invitePh  = document.getElementById('invite-ph');
+inviteImg.onerror = () => { inviteImg.style.display = 'none'; invitePh.style.display = 'flex'; };
+inviteImg.onload  = () => { inviteImg.style.display = 'block'; invitePh.style.display = 'none'; };
+
+document.getElementById('heartline').addEventListener('click', () => {
+  document.getElementById('invite-popup').classList.add('visible');
+});
+
+// ── Close popups (button or backdrop click) ──
+function closePopup(id) {
+  document.getElementById(id).classList.remove('visible');
+}
+['crown-popup', 'invite-popup'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) closePopup(id);
+  });
+});
 
 // ── Build card grid ──
 function buildGrid() {
@@ -419,6 +591,7 @@ function buildGrid() {
 
     front.appendChild(ph);
     front.appendChild(img);
+
     const badge = document.createElement('div');
     badge.className = 'card-num-badge';
     badge.textContent = i + 1;
@@ -453,11 +626,14 @@ function showBirthdayPage() {
 // ── Countdown ticker ──
 function pad(n) { return String(n).padStart(2, '0'); }
 
+const interval = setInterval(tick, 1000);
+
 function tick() {
   const now = new Date();
   const diff = BIRTHDAY - now;
 
   if (diff <= 0) {
+    clearInterval(interval);
     showBirthdayPage();
     return;
   }
@@ -487,9 +663,7 @@ function devToggle() {
     document.getElementById('dev-toggle').textContent = '🔀 Andere pagina bekijken';
   }
 }
-
 tick();
-setInterval(tick, 1000);
 </script>
 </body>
 </html>
